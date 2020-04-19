@@ -2,7 +2,6 @@ package authentication
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/mail"
 
@@ -35,16 +34,33 @@ func GoogleAuthenticationHandler(response http.ResponseWriter, request *http.Req
 	emailAddress, err := mail.ParseAddress(claimSet.Email)
 	if err != nil {
 		http.Error(response, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
 	}
 
 	var user database.User
-	if !database.UserWithEmailAddressExists(*emailAddress) {
-		user = database.CreateUser(*emailAddress)
+	if !database.UserWithEmailAddressExists(emailAddress) {
+		user = database.CreateUser(emailAddress)
 	} else {
-		user = database.GetUserByEmailAddress(*emailAddress)
+		user = database.GetUserByEmailAddress(emailAddress)
 	}
 
-	fmt.Printf("User is %v", user)
+	token, err := CreateToken(&user)
+
+	if err != nil {
+		http.Error(response, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		return
+	}
+
+	http.SetCookie(
+		response,
+		&http.Cookie{
+			Name:     "access_token",
+			Value:    token,
+			HttpOnly: true,
+		},
+	)
+
+	response.WriteHeader(http.StatusNoContent)
 
 	return
 }

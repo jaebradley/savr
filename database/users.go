@@ -19,7 +19,7 @@ type User struct {
 }
 
 // CreateUser adds an application user to the database
-func CreateUser(emailAddress mail.Address) User {
+func CreateUser(emailAddress *mail.Address) User {
 	conn, err := pgx.Connect(DatabaseConnectionConfiguration)
 
 	if err != nil {
@@ -48,7 +48,7 @@ func CreateUser(emailAddress mail.Address) User {
 }
 
 // GetUserByEmailAddress returns a user for a given input email address
-func GetUserByEmailAddress(emailAddress mail.Address) User {
+func GetUserByEmailAddress(emailAddress *mail.Address) User {
 	conn, err := pgx.Connect(DatabaseConnectionConfiguration)
 
 	if err != nil {
@@ -79,6 +79,6 @@ func GetUserByEmailAddress(emailAddress mail.Address) User {
 }
 
 // UserWithEmailAddressExists checks if a user already exists with the specified email address
-func UserWithEmailAddressExists(emailAddress mail.Address) bool {
+func UserWithEmailAddressExists(emailAddress *mail.Address) bool {
 	return GetUserByEmailAddress(emailAddress) != User{}
 }
