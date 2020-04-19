@@ -1,9 +1,11 @@
 package authentication
 
 import (
+	"net/http"
 	"os"
 	"time"
 
+	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
 
 	"github.com/jaebradley/savr/database"
@@ -39,4 +41,17 @@ func ParseToken(signedToken string) (parsedToken *jwt.Token, err error) {
 	}
 
 	return nil, nil
+}
+
+// FromCookie returns a function that extracts the token from the specified
+// key in the HTTP cookie, like "access_token"
+func FromCookie(accessTokenName string) jwtmiddleware.TokenExtractor {
+	return func(r *http.Request) (string, error) {
+		cookie, _ := r.Cookie(accessTokenName)
+		if cookie != nil {
+			return cookie.Value, nil
+		} else {
+			return "", nil
+		}
+	}
 }

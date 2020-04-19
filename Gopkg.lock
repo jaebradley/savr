@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:6726437ac0e60c0904e7eba21dfcc7c47f260e194027820229d0c98e328e1269"
+  name = "github.com/auth0/go-jwt-middleware"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "36081240882bbf356af6efb152969e4b0bcf4456"
+
+[[projects]]
   digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
@@ -58,6 +66,34 @@
   pruneopts = "UT"
   revision = "75dcda0896e109a2a22c9315bca3bb21b87b2ba5"
   version = "v1.7.4"
+
+[[projects]]
+  digest = "1:01a3bf7bc37c96547897d253f8437c89cd8e80ea0211ff5f440fbc19f44cd14e"
+  name = "github.com/graphql-go/graphql"
+  packages = [
+    ".",
+    "gqlerrors",
+    "language/ast",
+    "language/kinds",
+    "language/lexer",
+    "language/location",
+    "language/parser",
+    "language/printer",
+    "language/source",
+    "language/typeInfo",
+    "language/visitor",
+  ]
+  pruneopts = "UT"
+  revision = "02caa8943d64d9cd60bd67f2bc163676716bb963"
+  version = "v0.7.9"
+
+[[projects]]
+  digest = "1:fef0874d72d1f1f1cb61d390980fef4abdfb9d4a52446556e4414627833e3702"
+  name = "github.com/graphql-go/handler"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c1267356e6539d975e83bbea383c2bbb861dce5b"
+  version = "v0.2.3"
 
 [[projects]]
   digest = "1:d0fd048e36f6d46cdb8424cac7109244d73db58a07dff2cb389cb9a6c64499bb"
@@ -164,12 +200,15 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/auth0/go-jwt-middleware",
     "github.com/dgrijalva/jwt-go",
     "github.com/futurenda/google-auth-id-token-verifier",
     "github.com/go-pg/migrations",
     "github.com/go-pg/pg",
     "github.com/gorilla/handlers",
     "github.com/gorilla/mux",
+    "github.com/graphql-go/graphql",
+    "github.com/graphql-go/handler",
     "github.com/jackc/pgx",
     "github.com/joho/godotenv",
     "github.com/rs/cors",

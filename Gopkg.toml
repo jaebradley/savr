@@ -68,3 +68,15 @@
 [[constraint]]
   name = "github.com/dgrijalva/jwt-go"
   version = "3.2.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/auth0/go-jwt-middleware"
+
+[[constraint]]
+  name = "github.com/graphql-go/graphql"
+  version = "0.7.9"
+
+[[constraint]]
+  name = "github.com/graphql-go/handler"
+  version = "0.2.3"
