@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/mail"
+
+	"github.com/jaebradley/savr/database"
 )
 
 type authenticationData struct {
@@ -29,7 +32,14 @@ func GoogleAuthenticationHandler(response http.ResponseWriter, request *http.Req
 		return
 	}
 
-	fmt.Printf("Claim set is %v", claimSet)
+	emailAddress, err := mail.ParseAddress(claimSet.Email)
+	if err != nil {
+		http.Error(response, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+
+	user := database.CreateUser(*emailAddress)
+
+	fmt.Printf("User is %v", user)
 
 	return
 }

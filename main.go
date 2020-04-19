@@ -6,7 +6,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/jackc/pgx"
 	"github.com/jaebradley/savr/authentication"
+	"github.com/jaebradley/savr/database"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -17,6 +19,12 @@ import (
 func init() {
 	if err := godotenv.Load(); err != nil {
 		log.Print("No .env file found")
+	}
+
+	dbConnConfig, err := pgx.ParseConnectionString(os.Getenv("DATABASE_URL"))
+	database.DatabaseConnectionConfiguration = dbConnConfig
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to parse connection string %v\n", err)
 	}
 }
 

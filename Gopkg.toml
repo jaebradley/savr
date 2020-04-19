@@ -60,3 +60,7 @@
 [[constraint]]
   name = "github.com/rs/cors"
   version = "1.7.0"
+
+[[constraint]]
+  name = "github.com/jackc/pgx"
+  version = "3.6.2"

@@ -3,10 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/go-pg/migrations"
 	"github.com/go-pg/pg"
+	"github.com/joho/godotenv"
 )
 
 const usageText = `This program runs command on the db. Supported commands are:
@@ -21,14 +23,23 @@ Usage:
   go run *.go <command> [args]
 `
 
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
+}
+
 func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	db := pg.Connect(&pg.Options{
-		User:     os.Getenv("DATABSE_USER_NAME"),
-		Database: os.Getenv("DATABASE_NAME"),
-	})
+	options, err := pg.ParseURL(os.Getenv("DATABASE_URL"))
+	if err != nil {
+		fmt.Printf("unable to parse database url")
+		exitf(err.Error())
+	}
+
+	db := pg.Connect(options)
 
 	oldVersion, newVersion, err := migrations.Run(db, flag.Args()...)
 	if err != nil {

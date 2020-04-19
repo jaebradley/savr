@@ -12,9 +12,7 @@ func init() {
 		_, err := db.Exec(
 			`CREATE TABLE users (
 				"id" BIGSERIAL PRIMARY KEY,
-				"email_address" TEXT UNIQUE NOT NULL,
-				"provider_type" provider_type NOT NULL,
-				"provider_id" BIGINT NOT NULL
+				"email_address" TEXT UNIQUE NOT NULL
 			)`,
 		)
 		return err
