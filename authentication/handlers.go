@@ -37,7 +37,12 @@ func GoogleAuthenticationHandler(response http.ResponseWriter, request *http.Req
 		http.Error(response, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
 
-	user := database.CreateUser(*emailAddress)
+	var user database.User
+	if !database.UserWithEmailAddressExists(*emailAddress) {
+		user = database.CreateUser(*emailAddress)
+	} else {
+		user = database.GetUserByEmailAddress(*emailAddress)
+	}
 
 	fmt.Printf("User is %v", user)
 
