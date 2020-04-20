@@ -3,6 +3,7 @@ package authentication
 import (
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
@@ -16,7 +17,7 @@ func CreateToken(user *database.User) (signedToken string, err error) {
 	token := jwt.NewWithClaims(
 		jwt.SigningMethodHS256,
 		&jwt.StandardClaims{
-			Subject:   user.EmailAddress,
+			Subject:   strconv.FormatUint(user.ID, 10),
 			IssuedAt:  time.Now().Unix(),
 			ExpiresAt: time.Now().AddDate(0, 0, 14).Unix(),
 		},
