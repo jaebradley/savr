@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"net/mail"
 	"os"
-
-	"github.com/jackc/pgx"
 )
 
 const (
@@ -20,7 +18,7 @@ type User struct {
 
 // CreateUser adds an application user to the database
 func CreateUser(emailAddress *mail.Address) User {
-	conn, err := pgx.Connect(DatabaseConnectionConfiguration)
+	conn, err := ConnectionPool.Acquire()
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
@@ -49,7 +47,7 @@ func CreateUser(emailAddress *mail.Address) User {
 
 // GetUserByEmailAddress returns a user for a given input email address
 func GetUserByEmailAddress(emailAddress *mail.Address) User {
-	conn, err := pgx.Connect(DatabaseConnectionConfiguration)
+	conn, err := ConnectionPool.Acquire()
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
@@ -85,7 +83,7 @@ func UserWithEmailAddressExists(emailAddress *mail.Address) bool {
 
 // GetUserByID gets a User by it's id
 func GetUserByID(id uint64) User {
-	conn, err := pgx.Connect(DatabaseConnectionConfiguration)
+	conn, err := ConnectionPool.Acquire()
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)

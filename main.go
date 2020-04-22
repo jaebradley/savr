@@ -25,13 +25,25 @@ func init() {
 	}
 
 	dbConnConfig, err := pgx.ParseConnectionString(os.Getenv("DATABASE_URL"))
-	database.DatabaseConnectionConfiguration = dbConnConfig
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to parse connection string %v\n", err)
+		return
+	}
+
+	database.ConnectionConfiguration = dbConnConfig
+	poolConfig := pgx.ConnPoolConfig{
+		ConnConfig: dbConnConfig,
+	}
+	database.ConnectionPool, err = pgx.NewConnPool(poolConfig)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to create connection pool %v\n", err)
+		return
 	}
 }
 
 func main() {
+	defer database.ConnectionPool.Close()
+
 	router := mux.NewRouter()
 
 	c := cors.New(cors.Options{
