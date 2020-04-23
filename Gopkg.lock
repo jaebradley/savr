@@ -96,6 +96,14 @@
   version = "v0.2.3"
 
 [[projects]]
+  branch = "master"
+  digest = "1:87087e4e4d9e653cdb0c9a6a46c96c8cc3e1b7056894e120b84714d15a49a5f8"
+  name = "github.com/graphql-go/relay"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "54350098cfe5942bc76186efa1f29ca286f6d54d"
+
+[[projects]]
   digest = "1:d0fd048e36f6d46cdb8424cac7109244d73db58a07dff2cb389cb9a6c64499bb"
   name = "github.com/jackc/pgx"
   packages = [
@@ -149,6 +157,14 @@
   packages = ["pbkdf2"]
   pruneopts = "UT"
   revision = "0848c9571904fcbcb24543358ca8b5a7dbfde875"
+
+[[projects]]
+  branch = "master"
+  digest = "1:76ee51c3f468493aff39dbacc401e8831fbb765104cbf613b89bef01cf4bad70"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  pruneopts = "UT"
+  revision = "e086a090c8fdb9982880f0fb6e3db47af1856533"
 
 [[projects]]
   branch = "master"
@@ -209,6 +225,7 @@
     "github.com/gorilla/mux",
     "github.com/graphql-go/graphql",
     "github.com/graphql-go/handler",
+    "github.com/graphql-go/relay",
     "github.com/jackc/pgx",
     "github.com/joho/godotenv",
     "github.com/rs/cors",
