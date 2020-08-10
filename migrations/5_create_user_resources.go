@@ -12,10 +12,10 @@ func init() {
 		_, err := db.Exec(
 			`CREATE TABLE user_resources (
 				"id" BIGSERIAL PRIMARY KEY,
-				"user_id" BIGINT REFERENCES users(id) ON DELETE CASCADE,
-				"location" TEXT NOT NULL,
+				"user_id" BIGINT NOT NULL,
+				"resource_id" BIGINT NOT NULL,
 				"created_at" DATETIME WITH TIMEZONE NOT NULL,
-				UNIQUE ("user_id", "location")
+				UNIQUE ("user_id", "resource_id")
 			)`,
 		)
 		return err
